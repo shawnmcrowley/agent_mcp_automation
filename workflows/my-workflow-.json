@@ -1,0 +1,232 @@
+{
+  "updatedAt": "2026-01-28T04:19:58.942Z",
+  "createdAt": "2026-01-28T03:20:35.757Z",
+  "id": "Wfw7TBqKVBSbTZg0RdpzE",
+  "name": "My workflow",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "resource": "databasePage",
+        "databaseId": {
+          "__rl": true,
+          "value": "2eff939b-da20-8085-8aab-e82fd3be2a25",
+          "mode": "list",
+          "cachedResultName": "Knowledge Base",
+          "cachedResultUrl": "https://www.notion.so/2eff939bda2080858aabe82fd3be2a25"
+        },
+        "title": "={{ $json.Title }}",
+        "propertiesUi": {
+          "propertyValues": [
+            {
+              "key": "Category|select",
+              "selectValue": "={{ $json.Tag }}"
+            },
+            {
+              "key": "Tags|multi_select",
+              "multiSelectValue": "={{ $json.Tag }}{{ [] }}"
+            },
+            {
+              "key": "Date Added|date",
+              "includeTime": false,
+              "date": "={{ $json['Submitted Date'] }}"
+            },
+            {
+              "key": "Content|rich_text",
+              "textContent": "={{ $json.Content }}"
+            },
+            {
+              "key": "Source|url",
+              "urlValue": "={{ $json.Source }}"
+            }
+          ]
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "textContent": "={{ $json[\"Full Page\"] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        192,
+        0
+      ],
+      "id": "5eb091c0-09c1-4335-8fa1-35d5583ac92d",
+      "name": "Create a database page",
+      "credentials": {
+        "notionApi": {
+          "id": "VWYl2eRmSH8crin0",
+          "name": "Notion account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Medium Content Creation",
+        "formDescription": "Content for Notion Knowledge Base",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Title",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Tag",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Architecting"
+                  },
+                  {
+                    "option": "N8N"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Source",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Content",
+              "fieldType": "textarea"
+            },
+            {
+              "fieldLabel": "Submitted Date",
+              "fieldType": "date"
+            },
+            {
+              "fieldLabel": "Full Page",
+              "fieldType": "textarea",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false,
+          "customCss": ":root {\n\t--font-family: 'Open Sans', sans-serif;\n\t--font-weight-normal: 400;\n\t--font-weight-bold: 600;\n\t--font-size-body: 12px;\n\t--font-size-label: 14px;\n\t--font-size-test-notice: 12px;\n\t--font-size-input: 14px;\n\t--font-size-header: 20px;\n\t--font-size-paragraph: 14px;\n\t--font-size-link: 12px;\n\t--font-size-error: 12px;\n\t--font-size-html-h1: 28px;\n\t--font-size-html-h2: 20px;\n\t--font-size-html-h3: 16px;\n\t--font-size-html-h4: 14px;\n\t--font-size-html-h5: 12px;\n\t--font-size-html-h6: 10px;\n\t--font-size-subheader: 14px;\n\n\t/* Colors */\n\t--color-background: #fbfcfe;\n\t--color-test-notice-text: #e6a23d;\n\t--color-test-notice-bg: #fefaf6;\n\t--color-test-notice-border: #f6dcb7;\n\t--color-card-bg: #ffffff;\n\t--color-card-border: #dbdfe7;\n\t--color-card-shadow: rgba(99, 77, 255, 0.06);\n\t--color-link: #7e8186;\n\t--color-header: #525356;\n\t--color-label: #555555;\n\t--color-input-border: #dbdfe7;\n\t--color-input-text: #71747A;\n\t--color-focus-border: rgb(90, 76, 194);\n\t--color-submit-btn-bg: #ff6d5a;\n\t--color-submit-btn-text: #ffffff;\n\t--color-error: #ea1f30;\n\t--color-required: #ff6d5a;\n\t--color-clear-button-bg: #7e8186;\n\t--color-html-text: #555;\n\t--color-html-link: #ff6d5a;\n\t--color-header-subtext: #7e8186;\n\n\t/* Border Radii */\n\t--border-radius-card: 8px;\n\t--border-radius-input: 6px;\n\t--border-radius-clear-btn: 50%;\n\t--card-border-radius: 8px;\n\n\t/* Spacing */\n\t--padding-container-top: 24px;\n\t--padding-card: 24px;\n\t--padding-test-notice-vertical: 12px;\n\t--padding-test-notice-horizontal: 24px;\n\t--margin-bottom-card: 16px;\n\t--padding-form-input: 12px;\n\t--card-padding: 24px;\n\t--card-margin-bottom: 16px;\n\n\t/* Dimensions */\n\t--container-width: 448px;\n\t--submit-btn-height: 48px;\n\t--checkbox-size: 18px;\n\n\t/* Others */\n\t--box-shadow-card: 0px 4px 16px 0px var(--color-card-shadow);\n\t--opacity-placeholder: 0.5;\n}"
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -32,
+        0
+      ],
+      "id": "7e1802c5-edb9-4ef8-a38c-f6a03b113f2f",
+      "name": "On form submission",
+      "webhookId": "7eb1d43a-27b0-43b8-b71c-5a71384aacaf"
+    },
+    {
+      "parameters": {
+        "resource": "block",
+        "blockId": {
+          "__rl": true,
+          "value": "={{ $json.id }}",
+          "mode": "id"
+        },
+        "blockUi": {
+          "blockValues": [
+            {
+              "richText": true,
+              "text": {
+                "text": [
+                  {
+                    "text": "={{ $json.property_content }}",
+                    "annotationUi": {}
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.notion",
+      "typeVersion": 2.2,
+      "position": [
+        400,
+        0
+      ],
+      "id": "45e96328-9bfa-4134-840c-cb11c55de83b",
+      "name": "Append a block",
+      "credentials": {
+        "notionApi": {
+          "id": "VWYl2eRmSH8crin0",
+          "name": "Notion account 2"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Create a database page",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a database page": {
+      "main": [
+        [
+          {
+            "node": "Append a block",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "On form submission": [
+      {
+        "json": {
+          "Title": "Why I Enable Multi-Factor Authentication (MFA) for SSH on Linux Servers",
+          "Tag": "N8N",
+          "Source": "https://medium.com/@bornaly/why-i-enable-multi-factor-authentication-mfa-for-ssh-on-linux-servers-88f0a07ffb53",
+          "Content": "Strong passwords are dead. Even SSH keys, while powerful, can be stolen if a laptop is compromised or an agent is hijacked. That’s why on critical Linux servers, I go one step further: I enable MFA (multi-factor authentication) for SSH access.\r\n\r\nIt’s one of the simplest ways to stop attackers cold — even if they somehow get your key.\r\n\r\n🚨 The Problem With Relying on Keys Alone\r\nIf your private key is copied (via malware or stolen laptop), attackers can log in without raising alarms.\r\nSSH agent forwarding can be hijacked if a jump host is compromised.\r\nLost or forgotten keys create a rotation nightmare.\r\nSSH keys are strong — but not invincible. That’s why I add a second layer of protection.\r\n\r\n🔐 Step 1: Install Google Authenticator or Authy PAM Module\r\nOn Ubuntu/Debian:\r\n\r\napt install libpam-google-authenticator -y\r\nOn RHEL/CentOS:\r\n\r\nyum install google-authenticator -y\r\nEach user runs:",
+          "Submitted Date": "2026-01-27",
+          "Full Page": "Strong passwords are dead. Even SSH keys, while powerful, can be stolen if a laptop is compromised or an agent is hijacked. That’s why on critical Linux servers, I go one step further: I enable MFA (multi-factor authentication) for SSH access.\r\n\r\nIt’s one of the simplest ways to stop attackers cold — even if they somehow get your key.\r\n\r\n🚨 The Problem With Relying on Keys Alone\r\nIf your private key is copied (via malware or stolen laptop), attackers can log in without raising alarms.\r\nSSH agent forwarding can be hijacked if a jump host is compromised.\r\nLost or forgotten keys create a rotation nightmare.\r\nSSH keys are strong — but not invincible. That’s why I add a second layer of protection.\r\n\r\n🔐 Step 1: Install Google Authenticator or Authy PAM Module\r\nOn Ubuntu/Debian:\r\n\r\napt install libpam-google-authenticator -y\r\nOn RHEL/CentOS:\r\n\r\nyum install google-authenticator -y\r\nEach user runs:\r\n\r\ngoogle-authenticator\r\nThis generates a QR code they can scan with an MFA app (Google Authenticator, Authy, or FreeOTP).\r\n\r\n🔐 Step 2: Configure PAM for MFA\r\nEdit:\r\n\r\nvi /etc/pam.d/sshd\r\nAdd this line at the top:\r\n\r\nauth required pam_google_authenticator.so\r\n🔐 Step 3: Update SSHD to Require MFA\r\nEdit:\r\n\r\nvi /etc/ssh/sshd_config\r\nSet:\r\n\r\nChallengeResponseAuthentication yes\r\nAuthenticationMethods publickey,keyboard-interactive\r\nRestart SSH:\r\n\r\nsystemctl restart sshd\r\n➡️ Now users need both their SSH key and a one-time MFA code to log in.\r\n\r\n🔐 Step 4: Emergency Access (Best Practice)",
+          "submittedAt": "2026-01-27T22:57:22.867-05:00",
+          "formMode": "test"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "versionId": "71491654-10cb-4a8a-9c9e-6c2597c3a011",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-01-28T03:20:35.757Z",
+      "createdAt": "2026-01-28T03:20:35.757Z",
+      "role": "workflow:owner",
+      "workflowId": "Wfw7TBqKVBSbTZg0RdpzE",
+      "projectId": "S7XBLVmQrumMbn2L"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

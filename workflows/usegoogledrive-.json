@@ -1,0 +1,267 @@
+{
+  "updatedAt": "2026-02-01T13:45:21.215Z",
+  "createdAt": "2026-02-01T04:00:45.151Z",
+  "id": "0ZCSP3WsnRVUJIey1FGPt",
+  "name": "useGoogleDrive",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "authentication": "headerAuth",
+        "path": "useGoogleDrive"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        -192
+      ],
+      "id": "a1dd0e95-5910-44e8-bc49-67d5493d5a11",
+      "name": "MCP Server Trigger",
+      "webhookId": "fed55a1e-cc07-44cf-8175-10a1b478dfe3",
+      "notesInFlow": false,
+      "alwaysOutputData": false,
+      "retryOnFail": false,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "LIFtxUC0UzJVxRjC",
+          "name": "MCP Header Auth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "Google Drive Get Files as Binary",
+        "height": 256,
+        "width": 912
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -128,
+        192
+      ],
+      "typeVersion": 1,
+      "id": "92e7f43b-c935-4b0f-aef0-56d92171cb5d",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "description": "Use this tool to search google drive for PDF Files and return a JSON representation of base64 string of file",
+        "workflowId": {
+          "__rl": true,
+          "value": "0ZCSP3WsnRVUJIey1FGPt",
+          "mode": "id",
+          "cachedResultUrl": "/workflow/0ZCSP3WsnRVUJIey1FGPt"
+        },
+        "workflowInputs": {
+          "mappingMode": "defineBelow",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolWorkflow",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        16
+      ],
+      "id": "56b3bf17-5f29-41e8-a324-9be74934d54c",
+      "name": "Call 'useGoogleDrive'"
+    },
+    {
+      "parameters": {
+        "inputSource": "passthrough"
+      },
+      "type": "n8n-nodes-base.executeWorkflowTrigger",
+      "typeVersion": 1.1,
+      "position": [
+        -80,
+        256
+      ],
+      "id": "d74a6972-a9df-408a-a342-ff3673fe30ee",
+      "name": "When Executed by Another Workflow"
+    },
+    {
+      "parameters": {
+        "resource": "fileFolder",
+        "queryString": "2023 PGA Rules.pdf",
+        "filter": {
+          "whatToSearch": "files"
+        },
+        "options": {
+          "fields": [
+            "name"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        128,
+        256
+      ],
+      "id": "fddb95a9-29b6-45cf-9f8c-548b38a7ded5",
+      "name": "Search files and folders",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "sfg1E4beh7kb66Ms",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "mode": "list",
+          "value": ""
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        336,
+        256
+      ],
+      "id": "11bc0e96-3be6-45d5-8efb-64681a316a19",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "sfg1E4beh7kb66Ms",
+          "name": "Google Drive account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "pdf",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.extractFromFile",
+      "typeVersion": 1.1,
+      "position": [
+        544,
+        256
+      ],
+      "id": "bc064a61-6b69-4428-9e45-4cb3886b6b9a",
+      "name": "Extract from File"
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "root",
+          "cachedResultName": "/ (Root folder)"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDriveTool",
+      "typeVersion": 3,
+      "position": [
+        96,
+        16
+      ],
+      "id": "5686d262-5cbd-4fe8-ab3f-738c4cf34342",
+      "name": "Upload file in Google Drive",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "sfg1E4beh7kb66Ms",
+          "name": "Google Drive account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Call 'useGoogleDrive'": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When Executed by Another Workflow": {
+      "main": [
+        [
+          {
+            "node": "Search files and folders",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search files and folders": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Extract from File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file in Google Drive": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "f9f51d8c-3734-414e-8915-a16b5957adad",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-02-01T04:00:45.151Z",
+      "createdAt": "2026-02-01T04:00:45.151Z",
+      "role": "workflow:owner",
+      "workflowId": "0ZCSP3WsnRVUJIey1FGPt",
+      "projectId": "S7XBLVmQrumMbn2L"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

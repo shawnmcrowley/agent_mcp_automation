@@ -1,0 +1,353 @@
+{
+  "updatedAt": "2026-02-08T17:55:38.264Z",
+  "createdAt": "2026-02-08T17:55:38.264Z",
+  "id": "YpPBtzdigOlSbplC",
+  "name": "RAG-Using-PGStore",
+  "active": false,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Populate the Official PGA Rules Application with the current PGA Rules Book",
+        "formDescription": "File Upload to add Official PGA Rules Documents for processing...",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Upload your file(s)",
+              "fieldType": "file",
+              "multipleFiles": false,
+              "acceptFileTypes": ".pdf",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        },
+        "path": "a1f7a5c1-8140-40c7-af52-f74c9336c5d3"
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -128,
+        0
+      ],
+      "id": "abc3e5d5-4bc4-4599-948c-1468388d1d0d",
+      "name": "Upload your file here",
+      "webhookId": "a1f7a5c1-8140-40c7-af52-f74c9336c5d3"
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "textSplittingMode": "custom",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        224,
+        160
+      ],
+      "id": "f12b753b-0f79-4731-9e6c-73ea196eb75b",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "content": "### Readme\nLoad your data into a vector database with the 📚 **Load Data** flow, and then use your data as chat context with the 🐕 **Retriever** flow.\n\n**Quick start**\n1. Click on the `Execute Workflow` button to run the 📚 **Load Data** flow.\n2. Click on `Open Chat` button to run the 🐕 **Retriever** flow. Then ask a question about content from your document(s)\n\n\nFor more info, check [our docs on RAG in n8n](https://docs.n8n.io/advanced-ai/rag-in-n8n/).",
+        "height": 300,
+        "width": 440,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -656,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "dddecbed-c86d-42a4-99a8-f134a49b1fb4",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### 📚 Load Data Flow",
+        "height": 460,
+        "width": 700,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -176,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "03b91f4f-add7-4e85-ab28-91b87ed03f16",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "value": "vector_store_key",
+          "mode": "list",
+          "cachedResultName": "vector_store_key"
+        },
+        "clearStore": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.2,
+      "position": [
+        64,
+        0
+      ],
+      "id": "a7860c81-18be-4ebf-aedb-be1a3185d7d8",
+      "name": "Insert Data to Store"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolName": "knowledge_base",
+        "toolDescription": "Use this knowledge base to answer questions from the user",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.2,
+      "position": [
+        944,
+        208
+      ],
+      "id": "9f3f56ed-f2fd-45f2-8ca9-b5d4c8dea84c",
+      "name": "Query Data Tool"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        944,
+        -16
+      ],
+      "id": "9525c8c1-ee26-4734-858e-54ade38d2f5b",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "content": "### 🐕 2. Retriever Flow",
+        "height": 460,
+        "width": 680,
+        "color": 7
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        608,
+        -64
+      ],
+      "typeVersion": 1,
+      "id": "4ef20539-5263-48f3-a4e3-83a1a1bd619e",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "### Embeddings\n\nThe Insert and Retrieve operation use the same embedding node.\n\nThis is to ensure that they are using the **exact same embeddings and settings**.\n\nDifferent embeddings might not work at all, or have unintended consequences.\n",
+        "height": 240,
+        "width": 320,
+        "color": 4
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        672,
+        448
+      ],
+      "typeVersion": 1,
+      "id": "d49828b6-1eb2-4b83-ad3a-96475ef8f58c",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "model": "nomic-embed-text:latest"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        352,
+        512
+      ],
+      "id": "879e2be8-ea33-411b-9225-689dec1f8c93",
+      "name": "Embeddings Ollama",
+      "credentials": {
+        "ollamaApi": {
+          "id": "TZdbgh9xV22jloyP",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "kimi-k2:1t-cloud",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        816,
+        192
+      ],
+      "id": "14909702-de34-4e08-ba94-7029e91a21d0",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "TZdbgh9xV22jloyP",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "public": true,
+        "initialMessages": "I'm your Online PGA Rules Official.  I'm here to help you with rules inquiries, in play circumstances and violations.  My recommendations are provided DIRECTLY from the Official PGA Rule Book. How can I help you?",
+        "options": {},
+        "path": "22f40e6f-3049-4216-b993-6fb6f5040057"
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        688,
+        0
+      ],
+      "id": "a9b8e38f-56e8-4352-bd1f-9196bc376ca8",
+      "name": "When chat message received",
+      "webhookId": "22f40e6f-3049-4216-b993-6fb6f5040057"
+    },
+    {
+      "parameters": {
+        "chunkOverlap": 200,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.textSplitterRecursiveCharacterTextSplitter",
+      "typeVersion": 1,
+      "position": [
+        384,
+        288
+      ],
+      "id": "a0479b8b-68d0-4560-abd1-a200fa3218e4",
+      "name": "Recursive Character Text Splitter"
+    }
+  ],
+  "connections": {
+    "Upload your file here": {
+      "main": [
+        [
+          {
+            "node": "Insert Data to Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Insert Data to Store",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Query Data Tool": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Insert Data to Store",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Query Data Tool",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Recursive Character Text Splitter": {
+      "ai_textSplitter": [
+        [
+          {
+            "node": "Default Data Loader",
+            "type": "ai_textSplitter",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false,
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "errorWorkflow": "UMZ2SNw9c3jNjvA6aRpH6"
+  },
+  "staticData": null,
+  "meta": {
+    "templateId": "rag-starter-template",
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {},
+  "versionId": "5377c2a3-73fd-4945-ade0-a33bee4c963a",
+  "activeVersionId": null,
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-02-08T17:55:38.264Z",
+      "createdAt": "2026-02-08T17:55:38.264Z",
+      "role": "workflow:owner",
+      "workflowId": "YpPBtzdigOlSbplC",
+      "projectId": "S7XBLVmQrumMbn2L"
+    }
+  ],
+  "activeVersion": null,
+  "tags": []
+}

@@ -1,0 +1,177 @@
+{
+  "updatedAt": "2026-02-04T03:57:03.570Z",
+  "createdAt": "2026-01-25T19:34:26.133Z",
+  "id": "UMZ2SNw9c3jNjvA6aRpH6",
+  "name": "errorWorflow",
+  "active": true,
+  "isArchived": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "name": "Error Trigger",
+      "position": [
+        0,
+        0
+      ],
+      "type": "n8n-nodes-base.errorTrigger",
+      "typeVersion": 1,
+      "id": "88d9ab20-61f7-49a3-937e-fab2a1517c88"
+    },
+    {
+      "parameters": {
+        "select": "user",
+        "user": {
+          "__rl": true,
+          "value": "U0A7J9T4M5M",
+          "mode": "list",
+          "cachedResultName": "shawnmcrowley"
+        },
+        "text": "=You've received an Error:  {{ $json.execution.error.message }} from this workflow: {{ $json.workflow.name }}",
+        "otherOptions": {
+          "includeLinkToWorkflow": false
+        }
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "1d88e6b6-79e1-4892-bfb0-320af0278c14",
+      "name": "Send a message",
+      "webhookId": "88b6236c-bb2d-49dd-b807-3a6850a4bf8c",
+      "credentials": {
+        "slackApi": {
+          "id": "mg1weFdLrFXcszkA",
+          "name": "Slack account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Error Trigger": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1",
+    "availableInMCP": false
+  },
+  "staticData": null,
+  "meta": {
+    "templateCredsSetupCompleted": true
+  },
+  "pinData": {
+    "Error Trigger": [
+      {
+        "json": {
+          "execution": {
+            "id": 231,
+            "url": "http://localhost:5678/execution/workflow/1/231",
+            "retryOf": "34",
+            "error": {
+              "message": "Example Error Message",
+              "stack": "Stacktrace"
+            },
+            "lastNodeExecuted": "Node With Error",
+            "mode": "manual"
+          },
+          "workflow": {
+            "id": "1",
+            "name": "Example Workflow"
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "versionId": "afc84945-edb5-4e12-96be-61deccc2bc2e",
+  "activeVersionId": "afc84945-edb5-4e12-96be-61deccc2bc2e",
+  "triggerCount": 0,
+  "shared": [
+    {
+      "updatedAt": "2026-01-25T19:34:26.133Z",
+      "createdAt": "2026-01-25T19:34:26.133Z",
+      "role": "workflow:owner",
+      "workflowId": "UMZ2SNw9c3jNjvA6aRpH6",
+      "projectId": "S7XBLVmQrumMbn2L"
+    }
+  ],
+  "activeVersion": {
+    "updatedAt": "2026-02-05T03:27:39.431Z",
+    "createdAt": "2026-02-04T03:57:03.572Z",
+    "versionId": "afc84945-edb5-4e12-96be-61deccc2bc2e",
+    "workflowId": "UMZ2SNw9c3jNjvA6aRpH6",
+    "nodes": [
+      {
+        "parameters": {},
+        "name": "Error Trigger",
+        "position": [
+          0,
+          0
+        ],
+        "type": "n8n-nodes-base.errorTrigger",
+        "typeVersion": 1,
+        "id": "88d9ab20-61f7-49a3-937e-fab2a1517c88"
+      },
+      {
+        "parameters": {
+          "select": "user",
+          "user": {
+            "__rl": true,
+            "value": "U0A7J9T4M5M",
+            "mode": "list",
+            "cachedResultName": "shawnmcrowley"
+          },
+          "text": "=You've received an Error:  {{ $json.execution.error.message }} from this workflow: {{ $json.workflow.name }}",
+          "otherOptions": {
+            "includeLinkToWorkflow": false
+          }
+        },
+        "type": "n8n-nodes-base.slack",
+        "typeVersion": 2.4,
+        "position": [
+          208,
+          0
+        ],
+        "id": "1d88e6b6-79e1-4892-bfb0-320af0278c14",
+        "name": "Send a message",
+        "webhookId": "88b6236c-bb2d-49dd-b807-3a6850a4bf8c",
+        "credentials": {
+          "slackApi": {
+            "id": "mg1weFdLrFXcszkA",
+            "name": "Slack account"
+          }
+        }
+      }
+    ],
+    "connections": {
+      "Error Trigger": {
+        "main": [
+          [
+            {
+              "node": "Send a message",
+              "type": "main",
+              "index": 0
+            }
+          ]
+        ]
+      }
+    },
+    "authors": "Shawn Crowley",
+    "name": "v1",
+    "description": "",
+    "autosaved": true
+  },
+  "tags": []
+}
